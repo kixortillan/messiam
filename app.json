@@ -1,0 +1,23 @@
+{
+  "expo": {
+    "name": "Messiam",
+    "icon": "./abizo.png",
+    "version": "0.0.1",
+    "slug": "messiam",
+    "splash": {
+      "image": "./abizo-splash.png"
+    },
+    "ios": {
+      "bundleIdentifier": "com.gssi.messiam"
+    },
+    "android": {
+      "package": "com.gssi.messiam",
+      "config": {
+        "googleMaps": {
+          "apiKey": "AIzaSyB73MJK6pVjsQLwbTjoF7-yHrw1l0f5k_E"
+        }
+      }
+    },
+    "sdkVersion": "27.0.0"
+  }
+}
