@@ -1,10 +1,11 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import { connect } from 'react-redux';
 import { MapView, Location, Permissions } from 'expo';
 import { SwitchNavigator } from 'react-navigation';
 import firebase from '../lib/firebase';
 
-export default class Home extends React.Component {
+class Home extends React.Component {
 
   constructor() {
     super();
@@ -62,3 +63,17 @@ const styles = StyleSheet.create({
     // justifyContent: 'center',
   },
 });
+
+const mapStateToProps = state => {
+  return {
+
+  };
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Home);

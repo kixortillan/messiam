@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { StyleSheet, Text, View, ActivityIndicator } from 'react-native';
 import { connect } from 'react-redux';
 import { SecureStore } from 'expo'; 
+import firebase from '../lib/firebase';
 
 class AuthLoading extends Component {
   constructor() {
@@ -9,10 +10,10 @@ class AuthLoading extends Component {
   }
 
   getCredentials() {
-    SecureStore.getItemAsync('credentials').then((credentials) => {
-      console.log('Credentials: ', credentials);
-      this.props.saveToken(credentials);
-      this.props.navigation.navigate(credentials ? 'AppStack' : 'AuthStack');
+    SecureStore.getItemAsync('accessToken').then((accessToken) => {
+      console.log('Token: ', accessToken);
+      this.props.saveToken(accessToken);
+      this.props.navigation.navigate(accessToken ? 'AppStack' : 'AuthStack');
     }).catch((err) => {
       console.error(err);   
     });
@@ -20,7 +21,16 @@ class AuthLoading extends Component {
 
   componentDidMount() {
     //console.log(this.props);
-    this.getCredentials();
+    //this.getCredentials();
+    firebase.auth().onAuthStateChanged((user) => {
+      console.log('User: ', user);
+    
+      if(user !== null) {
+        this.props.saveUser(user);
+        this.props.navigation.navigate(user ? 'AppStack' : 'AuthStack');
+      }
+    
+    });
   }
 
   render() {
@@ -41,6 +51,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     saveToken: credentials => dispatch({ type: 'SAVE_TOKEN', data: { accessToken: credentials }}),
+    saveUser: user => dispatch({ type: 'USER_AUTH', data: { user: user } }),
   };
 };
 
