@@ -33,6 +33,13 @@ function app(state = initialState, action) {
     case 'UPDATE_APP_READY':
       return { ...state, isAppReady: action.data.isAppReady };
       break;
+    case 'UPDATE_MY_LOC':
+      //console.log({ ...state, user: { ...state.user, lat: action.data.lat, lng: action.data.lng } });
+      return { ...state, user: { ...state.user, lat: action.data.lat, lng: action.data.lng } };
+      break;
+    case 'UPDATE_LOCAL_PROF_PIC':
+      return { ...state, user: { ...state.user, localProfilePic: action.data.localProfilePic } };
+      break;
     default: 
       return state;
   }
