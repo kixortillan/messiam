@@ -5,7 +5,7 @@
     "version": "0.0.1",
     "slug": "messiam",
     "splash": {
-      "image": "./abizo-splash.png"
+      "image": "./splash.png"
     },
     "ios": {
       "bundleIdentifier": "com.gssi.messiam"
@@ -17,6 +17,11 @@
           "apiKey": "AIzaSyB73MJK6pVjsQLwbTjoF7-yHrw1l0f5k_E"
         }
       }
+    },
+    "androidStatusBarColor": "#334393",
+    "androidStatusBar": {
+      "barStyle": "light-content",
+      "backgroundColor": "#C2185B"
     },
     "sdkVersion": "27.0.0"
   }

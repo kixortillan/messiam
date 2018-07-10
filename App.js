@@ -2,19 +2,42 @@ import React from 'react';
 import { Provider, connect } from 'react-redux';
 import { StyleSheet, Text, View } from 'react-native';
 import { Asset, AppLoading } from 'expo';
-import { createStackNavigator, createSwitchNavigator } from 'react-navigation';3
+import { createStackNavigator, createSwitchNavigator, 
+  createBottomTabNavigator } from 'react-navigation';
+import { MaterialIcons } from '@expo/vector-icons';
 import firebase from './lib/firebase';
 import store from './store/store';
 
 //import Auth from './views/Auth';
 import Login from './views/Login';
 import Home from './views/Home';
+import Group from './views/Group';
+import Account from './views/Account';
 import AuthLoading from './views/AuthLoading';
 
-const AppStack = createStackNavigator({
-  Home,
+const AppStack = createBottomTabNavigator({
+  Home, Group, Account,
 }, {
   initialRouteName: 'Home',
+  navigationOptions: ({ navigation }) => ({
+    tabBarIcon: ({ focused, tintColor }) => {
+      const { routeName } = navigation.state;
+      switch(routeName) {
+        case 'Account':
+          return <MaterialIcons name="account-circle" size={24} />;
+        case 'Group':
+          return <MaterialIcons name="group" size={24} />;
+        default:
+        case 'Home':
+          return <MaterialIcons name="home" size={24} />;
+      }
+    }
+  }),
+  tabBarOptions: {
+    activeTintColor: 'tomato',
+    inactiveTintColor: 'gray',
+    showLabel: false,
+  },
 });
 
 const AuthStack = createStackNavigator({

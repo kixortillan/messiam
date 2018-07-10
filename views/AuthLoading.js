@@ -9,33 +9,21 @@ class AuthLoading extends Component {
     super();
   }
 
-  getCredentials() {
-    SecureStore.getItemAsync('accessToken').then((accessToken) => {
-      console.log('Token: ', accessToken);
-      this.props.saveToken(accessToken);
-      this.props.navigation.navigate(accessToken ? 'AppStack' : 'AuthStack');
-    }).catch((err) => {
-      console.error(err);   
-    });
-  }
-
   componentDidMount() {
-    //console.log(this.props);
-    //this.getCredentials();
     firebase.auth().onAuthStateChanged((user) => {
       console.log('User: ', user);
     
       if(user !== null) {
         this.props.saveUser(user);
-        this.props.navigation.navigate(user ? 'AppStack' : 'AuthStack');
       }
-    
+      
+      this.props.navigation.navigate(user ? 'AppStack' : 'AuthStack');
     });
   }
 
   render() {
     return (
-      <View style={{ flex: 1 }}>
+      <View style={{ flex: 1, justifyContent: 'space-around' }}>
         <ActivityIndicator size='small' />
       </View>
     );
