@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "Messiam",
-    "icon": "./abizo.png",
+    "icon": "./applogo.png",
     "version": "0.0.1",
     "slug": "messiam",
     "splash": {

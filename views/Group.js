@@ -11,7 +11,16 @@ class Group extends React.Component {
   }
 
   componentDidMount() {
-    
+    firebase.firestore().collection('groups')
+      .where(`users.${this.props.user.uid}`, '==', true)
+      .onSnapshot((snapshot) => {
+        const groups = [];
+        snapshot.forEach((group) => {
+          groups.push(group.data());
+        });
+
+        this.props.
+      });
   }
 
   render() {
@@ -36,13 +45,14 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = state => {
   return {
-
+    user: state.user,
+    groups: state.groups,
   };
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-
+    saveGroup: groups => (dispatch({type: 'SAVE_GROUPS', data: {groups: groups}})),
   };
 }
 

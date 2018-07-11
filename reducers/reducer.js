@@ -9,7 +9,7 @@ const initialState = Immutable.Map({
   refreshToken: null,
   idToken: null,
   user: null,
-  circles: null,
+  groups: null,
   chat: null,
 });
 
@@ -24,22 +24,19 @@ function app(state = initialState, action) {
       break;
     case 'SAVE_TOKEN':
       return { ...state, accessToken: action.data.accessToken };
-      break;
     case 'USER_AUTH':
       return { ...state, user: action.data.user };
-      break;
     case 'GET_TOKEN':
       break;
     case 'UPDATE_APP_READY':
       return { ...state, isAppReady: action.data.isAppReady };
-      break;
     case 'UPDATE_MY_LOC':
       //console.log({ ...state, user: { ...state.user, lat: action.data.lat, lng: action.data.lng } });
       return { ...state, user: { ...state.user, lat: action.data.lat, lng: action.data.lng } };
-      break;
     case 'UPDATE_LOCAL_PROF_PIC':
       return { ...state, user: { ...state.user, localProfilePic: action.data.localProfilePic } };
-      break;
+    case 'SAVE_GROUPS':
+      return {...state, groups: action.data.groups};
     default: 
       return state;
   }

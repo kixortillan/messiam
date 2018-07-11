@@ -19,6 +19,9 @@ class Account extends React.Component {
       <View style={styles.container}>
         <StatusBar backgroundColor="blue"
      barStyle="dark-content" />
+        <Text>{this.props.user.displayName}</Text>
+        <Text>{this.props.user.email}</Text>
+        <Text>Account View</Text>
         <Text>Account View</Text>
       </View>
     );
@@ -36,7 +39,7 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = state => {
   return {
-
+    user: state.user,
   };
 }
 

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, Button } from 'react-native';
 import { connect } from 'react-redux'; 
-import { Google, SecureStore } from 'expo';
+import { Google } from 'expo';
 import firebase from '../lib/firebase';
 
 class Login extends Component {
@@ -28,12 +28,6 @@ const mapDispatchToProps = dispatch => {
           console.log('Google Auth: ', result);
           const credentials = firebase.auth.GoogleAuthProvider.credential(result.idToken, result.accessToken);
           console.log('Credentials: ', credentials);
-
-          SecureStore.setItemAsync('accessToken', credentials.accessToken).catch((err) => console.error(err));
-          SecureStore.setItemAsync('idToken', credentials.idToken).catch((err) => console.error(err));
-          SecureStore.setItemAsync('providerId', credentials.providerId).catch((err) => console.error(err));
-          SecureStore.setItemAsync('signInMethod', credentials.signInMethod).catch((err) => console.error(err));
-
           firebase.auth().signInAndRetrieveDataWithCredential(credentials).catch((err) => {
             console.error('Error Authentication with Firebase via Google');
           });

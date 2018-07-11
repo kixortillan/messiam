@@ -1,7 +1,7 @@
 import React from 'react';
-import { StyleSheet, Text, View, Image, PixelRatio } from 'react-native';
+import { StyleSheet, Text, View, Image, ImageBackground } from 'react-native';
 import { connect } from 'react-redux';
-import { MapView, Location, Permissions, FileSystem } from 'expo';
+import { MapView, Location, Permissions, FileSystem, Svg } from 'expo';
 import { SwitchNavigator } from 'react-navigation';
 import firebase from '../lib/firebase';
 
@@ -9,6 +9,9 @@ class Home extends React.Component {
 
   constructor() {
     super();
+    this.state = {
+      profPicLoaded: false,
+    };
     this.myLocation = this.myLocation.bind(this);
   }
   
@@ -36,10 +39,6 @@ class Home extends React.Component {
     }
   }
 
-  handleOnRegionChange = () => {
-
-  }
-
   componentDidMount() {
     this.myLocation();
 
@@ -56,19 +55,14 @@ class Home extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        {/* <MapView style={{ flex: 1 }} initialRegion={{
-          latitude: this.state.lat,
-          longitude: this.state.lng,
-          latitudeDelta: 1,
-          longitudeDelta: 1,
-        }} region={this.state.region} showUsersLocation={true} followsUserLocation={true} loadingEnabled={true} showsMyLocationButton={true} /> */}
         <MapView style={{ flex: 1 }} region={{ latitude: this.props.user.lat || 0, longitude: this.props.user.lng || 0, latitudeDelta: 0.009, longitudeDelta: 0.009 }}
-        showUsersLocation={true} followsUserLocation={true} 
-        loadingEnabled={true} showsMyLocationButton={true}>
-          <MapView.Marker key={-1} coordinate={{ latitude: this.props.user.lat || 0, longitude: this.props.user.lng || 0 }} 
-          image={'https://lh4.googleusercontent.com/-_y4wV8FSjHQ/AAAAAAAAAAI/AAAAAAAAAAU/RFWDnhE2-FM/s96-c/photo.jpg'}
+          showUsersLocation={true} followsUserLocation={true} 
+          loadingEnabled={true} showsMyLocationButton={true}>
+          <MapView.Marker key={-1} 
+          coordinate={{ latitude: this.props.user.lat || 0, longitude: this.props.user.lng || 0 }} 
           style={{ borderColor: 'red' }}
           title='Your location' description='Your location'>
+              <Image key={`profpic-${this.state.profPicLoaded}`} onLayout={() => this.setState({profPicLoaded: true})} style={{ flex: 1, height: 40, width: 40, borderRadius: 50, borderWidth: 3, borderColor: '#FFF' }} source={{ uri: this.props.user.photoURL }} />
           </MapView.Marker>
         </MapView>
       </View>
@@ -79,9 +73,6 @@ class Home extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    // backgroundColor: '#fff',
-    // alignItems: 'center',
-    // justifyContent: 'center',
   },
 });
 
