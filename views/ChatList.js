@@ -5,7 +5,7 @@ import { Permissions } from 'expo';
 import { SwitchNavigator, SafeAreaView } from 'react-navigation';
 import firebase from '../lib/firebase';
 
-class Group extends React.Component {
+class ChatList extends React.Component {
   constructor() {
     super();
   }
@@ -36,23 +36,19 @@ class Group extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    // backgroundColor: '#fff',
-    // alignItems: 'center',
-    // justifyContent: 'center',
   },
 });
 
 const mapStateToProps = state => {
   return {
     user: state.user,
-    groups: state.groups,
   };
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    saveGroup: groups => (dispatch({type: 'SAVE_GROUPS', data: {groups: groups}})),
+    
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Group);
+export default connect(mapStateToProps, mapDispatchToProps)(ChatList);
