@@ -27,7 +27,9 @@ class Group extends React.Component {
     return (
       <View style={styles.container}>
         <StatusBar backgroundColor="blue" barStyle="dark-content" />
-        {this.props.groups && <FlatList data={this.props.groups.map(group => {key: group.alias})} renderItem={({item}) => <Text>{console.log(item.key)}</Text>} />}
+        {this.props.groups && 
+          <FlatList data={this.props.groups && this.props.groups.map(group => Object.assign({}, {key: Date.now()}))} 
+          renderItem={({item}) => <Text>{item.key}</Text>} />}
       </View>
     );
   }
