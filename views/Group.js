@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, StatusBar } from 'react-native';
+import { StyleSheet, Text, View, StatusBar, FlatList } from 'react-native';
 import { connect } from 'react-redux';
 import { Permissions } from 'expo';
 import { SwitchNavigator, SafeAreaView } from 'react-navigation';
@@ -27,7 +27,7 @@ class Group extends React.Component {
     return (
       <View style={styles.container}>
         <StatusBar backgroundColor="blue" barStyle="dark-content" />
-        {this.props.groups && this.props.groups.map(group => <Text key={group.alias}>{group.alias}</Text>)}
+        {this.props.groups && <FlatList data={this.props.groups.map(group => {key: group.alias})} renderItem={({item}) => <Text>{console.log(item.key)}</Text>} />}
       </View>
     );
   }

@@ -11,18 +11,21 @@ import store from './store/store';
 //import Auth from './views/Auth';
 import Login from './views/Login';
 import Home from './views/Home';
+import ChatList from './views/ChatList';
 import Group from './views/Group';
 import Account from './views/Account';
 import AuthLoading from './views/AuthLoading';
 
 const AppStack = createBottomTabNavigator({
-  Home, Group, Account,
+  Home, ChatList, Group, Account
 }, {
   initialRouteName: 'Home',
   navigationOptions: ({ navigation }) => ({
     tabBarIcon: ({ focused, tintColor }) => {
       const { routeName } = navigation.state;
       switch(routeName) {
+        case 'ChatList':
+          return <MaterialIcons name="chat" size={24} />;
         case 'Account':
           return <MaterialIcons name="account-circle" size={24} />;
         case 'Group':
@@ -37,6 +40,9 @@ const AppStack = createBottomTabNavigator({
     activeTintColor: 'tomato',
     inactiveTintColor: 'gray',
     showLabel: false,
+    style: {
+      backgroundColor: '#FFF',
+    }
   },
 });
 

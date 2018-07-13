@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { MapView, Location, Permissions, FileSystem, Svg } from 'expo';
 import { SwitchNavigator } from 'react-navigation';
 import firebase from '../lib/firebase';
+import MapMarkerImage from '../components/MapMarkerImage';
 
 class Home extends React.Component {
 
@@ -19,53 +20,34 @@ class Home extends React.Component {
     let { status } = await Permissions.askAsync(Permissions.LOCATION);
 
     if(status == 'granted') {
-      // let location = await Location.getCurrentPositionAsync({});
-      // console.log('Location:', location);      
-      // this.setState({
-      //   lat: location.coords.latitude, 
-      //   lng: location.coords.longitude, 
-      //   region: {latitude: location.coords.latitude, longitude: location.coords.longitude, latitudeDelta: 1, longitudeDelta: 1}
-      // });
-      // this.props.updateMyLoc(location.coords.latitude, location.coords.longitude);
       const watchLoc = Location.watchPositionAsync({
-        enableHighAccuracy: false,
-        timeInterval: 120000,//2mins
-        distanceInterval: 30,
+        enableHighAccuracy: true,
+        timeInterval: 60000,//2mins
+        distanceInterval: 10,
       }, ({ coords, mocked, timestamp }) => {
         //update current users lat and long
         console.log('Watch Loc Update:  ', coords);
-        this.props.updateMyLoc(coords.latitude, coords.longitude);
+        this.props.updateMyLoc(this.props.user, coords.latitude, coords.longitude);
       });
     }
   }
 
   componentDidMount() {
     this.myLocation();
-
-    FileSystem.downloadAsync(this.props.user.photoURL, FileSystem.documentDirectory + `/img/${this.props.user.uid}.png`)
-      .then(({ uri }) => {
-        console.log(uri);
-        this.props.updateLocalProfilePic(uri);
-      })
-      .catch((err) => {
-        console.error(err);
-      });
   }
 
   render() {
     return (
       <View style={styles.container}>
-        <MapView style={{ flex: 1 }} region={{ latitude: this.props.user.lat || 0, longitude: this.props.user.lng || 0, latitudeDelta: 0.009, longitudeDelta: 0.009 }}
+        <MapView style={{ flex: 1 }} 
+          region={{ latitude: this.props.user.lat || 0, longitude: this.props.user.lng || 0, latitudeDelta: 0.009, longitudeDelta: 0.009 }}
           showUsersLocation={true} followsUserLocation={true} 
           loadingEnabled={true} showsMyLocationButton={true}>
           <MapView.Marker key={-1} 
           coordinate={{ latitude: this.props.user.lat || 0, longitude: this.props.user.lng || 0 }} 
           style={{ borderColor: 'red' }}
-          title='Your location' description='Your location'>
-              <Image key={`profpic-${this.state.profPicLoaded}`} 
-              onLayout={() => this.setState({profPicLoaded: true})} 
-              style={{ flex: 1, height: 40, width: 40, borderRadius: 50, borderWidth: 3, borderColor: '#FFF' }} 
-              source={{ uri: this.props.user.photoURL }} />
+          title={this.props.user.displayName}>
+              <MapMarkerImage url={this.props.user.photoURL}/>
           </MapView.Marker>
         </MapView>
       </View>
@@ -87,11 +69,16 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    updateMyLoc: (lat, lng) => {
+    updateMyLoc: (user, lat, lng) => {
       dispatch({ type: 'UPDATE_MY_LOC', data: {lat: lat, lng: lng} });
-    },
-    updateLocalProfilePic: (uri) => {
-      dispatch({ type:'UPDATE_LOCAL_PROF_PIC', data: {localProfilePic: uri} });
+
+      return firebase.firestore()
+              .collection('users')
+              .doc(user.uid)
+              .set({
+                lat: lat,
+                lng: lng,
+              });
     },
   };
 }
