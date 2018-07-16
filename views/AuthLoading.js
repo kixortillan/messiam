@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
-import { StyleSheet, Text, View, ActivityIndicator } from 'react-native';
+import React, { PureComponent } from 'react';
+import { View, ActivityIndicator } from 'react-native';
 import { connect } from 'react-redux';
-import { SecureStore } from 'expo'; 
+// import { SecureStore } from 'expo'; 
 import firebase from '../lib/firebase';
 
-class AuthLoading extends Component {
+class AuthLoading extends PureComponent {
   constructor() {
     super();
   }
@@ -24,7 +24,7 @@ class AuthLoading extends Component {
   render() {
     return (
       <View style={{ flex: 1, justifyContent: 'space-around' }}>
-        <ActivityIndicator size='small' />
+        <ActivityIndicator size='large' />
       </View>
     );
   }
@@ -38,7 +38,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    saveToken: credentials => dispatch({ type: 'SAVE_TOKEN', data: { accessToken: credentials }}),
+    // saveToken: credentials => dispatch({ type: 'SAVE_TOKEN', data: { accessToken: credentials }}),
     saveUser: user => dispatch({ type: 'USER_AUTH', data: { user: user } }),
   };
 };

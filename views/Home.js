@@ -1,18 +1,13 @@
 import React from 'react';
-import { StyleSheet, Text, View, Image, ImageBackground } from 'react-native';
+import { View } from 'react-native';
 import { connect } from 'react-redux';
-import { MapView, Location, Permissions, FileSystem, Svg } from 'expo';
-import { SwitchNavigator } from 'react-navigation';
+import { MapView, Location, Permissions } from 'expo';
 import firebase from '../lib/firebase';
 import MapMarkerImage from '../components/MapMarkerImage';
 
-class Home extends React.Component {
-
+class Home extends React.PureComponent {
   constructor() {
     super();
-    this.state = {
-      profPicLoaded: false,
-    };
     this.myLocation = this.myLocation.bind(this);
   }
   
@@ -26,7 +21,7 @@ class Home extends React.Component {
         distanceInterval: 10,
       }, ({ coords, mocked, timestamp }) => {
         //update current users lat and long
-        console.log('Watch Loc Update:  ', coords);
+        console.log('Watch Loc Update: ', coords);
         this.props.updateMyLoc(this.props.user, coords.latitude, coords.longitude);
       });
     }
@@ -38,7 +33,7 @@ class Home extends React.Component {
 
   render() {
     return (
-      <View style={styles.container}>
+      <View style={{ flex: 1}}>
         <MapView style={{ flex: 1 }} 
           region={{ latitude: this.props.user.lat || 0, longitude: this.props.user.lng || 0, latitudeDelta: 0.009, longitudeDelta: 0.009 }}
           showUsersLocation={true} followsUserLocation={true} 
@@ -55,12 +50,6 @@ class Home extends React.Component {
   }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-});
-
 const mapStateToProps = state => {
   return {
     user: state.user,
@@ -73,12 +62,12 @@ const mapDispatchToProps = dispatch => {
       dispatch({ type: 'UPDATE_MY_LOC', data: {lat: lat, lng: lng} });
 
       return firebase.firestore()
-              .collection('users')
-              .doc(user.uid)
-              .set({
-                lat: lat,
-                lng: lng,
-              });
+        .collection('users')
+        .doc(user.uid)
+        .set({
+          lat: lat,
+          lng: lng,
+        });
     },
   };
 }

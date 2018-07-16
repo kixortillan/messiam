@@ -1,14 +1,27 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, Button } from 'react-native';
+import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux'; 
 import { Google } from 'expo';
 import firebase from '../lib/firebase';
 
 class Login extends Component {
+  static navigationOptions = {
+    header: null,
+  }
+
+  constructor() {
+    super();
+  }
+
   render() {
     return (
-      <View style={{ flex: 1 }}>
-        <Button onPress={this.props.login} title='Login' accessibilityLabel='press this button to login' />
+      <View style={{ flex: 1, justifyContent: 'space-around', alignItems: 'center', backgroundColor: '#FFFFFF' }}>
+        {/* <Button onPress={this.props.login} title='Login' accessibilityLabel='press this button to login'>
+          <Image source={require('../assets/img/btn_google_signin_light_normal_web.png')} />
+        </Button> */}
+        <TouchableOpacity onPress={this.props.login}>
+          <Image source={require('../assets/img/btn_google_signin_light_normal_web.png')} />
+        </TouchableOpacity>
       </View>
     );
   }

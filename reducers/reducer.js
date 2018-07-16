@@ -5,9 +5,9 @@ import thunk from 'redux-thunk';
 
 const initialState = Immutable.Map({
   isAppReady: false,
-  accessToken: null,
-  refreshToken: null,
-  idToken: null,
+  // accessToken: null,
+  // refreshToken: null,
+  // idToken: null,
   user: null,
   groups: null,
   chat: null,
@@ -22,8 +22,8 @@ function app(state = initialState, action) {
     case 'LOGIN_USER':
       return { ...state, user: action.data.user };
       break;
-    case 'SAVE_TOKEN':
-      return { ...state, accessToken: action.data.accessToken };
+    // case 'SAVE_TOKEN':
+    //   return { ...state, accessToken: action.data.accessToken };
     case 'USER_AUTH':
       return { ...state, user: action.data.user };
     case 'GET_TOKEN':
@@ -44,7 +44,7 @@ function app(state = initialState, action) {
 
 initialState.propTypes = {
   isAppReady: PropTypes.bool,
-  accessToken: PropTypes.object,
+  // accessToken: PropTypes.object,
   user: PropTypes.object,
   circles: PropTypes.arrayOf(PropTypes.object),
   chat: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.object)),

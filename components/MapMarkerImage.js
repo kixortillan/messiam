@@ -1,14 +1,13 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Image, View } from 'react-native';
-// import { FileSystem } from 'expo';
 
-export default class MapMarkerImage extends Component {
+export default class MapMarkerImage extends React.PureComponent {
   
   constructor() {
     super();
     this.state = {
       isImageLoaded: false,
-      defaultImg: require('../assets/img/user-img.png'),
+      // defaultImg: require('../assets/img/user-img.png'),
     };
   }
   
@@ -19,8 +18,8 @@ export default class MapMarkerImage extends Component {
           <Image onLoadEnd={() => this.setState({isImageLoaded: true})}
           style={{ flex: 1, height: 0, width: 0, borderRadius: 50, borderWidth: 3, borderColor: '#FFF' }} 
           source={{ uri: this.props.url }} />
-          <Image style={{ flex: 1, height: 40, width: 40, borderRadius: 50, borderWidth: 3, borderColor: '#FFF' }} 
-          source={this.state.defaultImg} />
+          {/* <Image style={{ flex: 1, height: 40, width: 40, borderRadius: 50, borderWidth: 3, borderColor: '#FFF' }} 
+          source={this.state.defaultImg} /> */}
         </View>
       );
     }

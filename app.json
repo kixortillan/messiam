@@ -20,8 +20,8 @@
     },
     "androidStatusBarColor": "#334393",
     "androidStatusBar": {
-      "barStyle": "light-content",
-      "backgroundColor": "#C2185B"
+      "barStyle": "dark-content",
+      "backgroundColor": "#212121"
     },
     "sdkVersion": "27.0.0"
   }

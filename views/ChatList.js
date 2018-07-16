@@ -11,23 +11,13 @@ class ChatList extends React.Component {
   }
 
   componentDidMount() {
-    firebase.firestore().collection('groups')
-      .where(`users.${this.props.user.uid}`, '==', true)
-      .onSnapshot((snapshot) => {
-        const groups = [];
-        snapshot.forEach((group) => {
-          groups.push(group.data());
-        });
-        console.log(groups);
-        this.props.saveGroup(groups);
-      });
+   
   }                                                                                                                                                                                                                           
 
   render() {                                                                           
     return (
       <View style={styles.container}>
-        <StatusBar backgroundColor="blue" barStyle="dark-content" />
-        {this.props.groups && this.props.groups.map(group => <Text key={group.alias}>{group.alias}</Text>)}
+        <Text>ChatList</Text>
       </View>
     );
   }

@@ -17,8 +17,6 @@ class Account extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <StatusBar backgroundColor="blue"
-     barStyle="dark-content" />
         <Text>{this.props.user.displayName}</Text>
         <Text>{this.props.user.email}</Text>
         <Text>Account View</Text>
