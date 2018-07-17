@@ -64,9 +64,10 @@ const mapDispatchToProps = dispatch => {
       return firebase.firestore()
         .collection('users')
         .doc(user.uid)
-        .set({
+        .update({
           lat: lat,
           lng: lng,
+          locationUpdatedAt: firebase.firestore.FieldValue.serverTimestamp(),
         });
     },
   };

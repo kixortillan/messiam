@@ -10,13 +10,27 @@ class AuthLoading extends PureComponent {
   }
 
   componentDidMount() {
-    firebase.auth().onAuthStateChanged((user) => {
+    firebase.auth().onAuthStateChanged(async (user) => {
       console.log('User: ', user);
     
       if(user !== null) {
-        this.props.saveUser(user);
+        try {
+          await firebase.firestore().doc(`/users/${user.uid}`).set({
+            displayName: user.displayName,
+            email: user.email,
+            photoURL: user.photoURL,
+            phoneNumber: user.phoneNumber,
+            // createdAt: user.createdAt,
+          }, {
+            merge: true,
+          }); 
+
+          this.props.saveUser(user);
+        } catch(err) {
+          console.error(err);
+        }
       }
-      
+
       this.props.navigation.navigate(user ? 'AppStack' : 'AuthStack');
     });
   }
