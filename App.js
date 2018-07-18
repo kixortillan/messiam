@@ -1,5 +1,6 @@
 import React from 'react';
 import { Provider } from 'react-redux';
+import { Text, Platform } from 'react-native';
 import { Asset, AppLoading } from 'expo';
 import { createStackNavigator, createSwitchNavigator, 
   createBottomTabNavigator } from 'react-navigation';
@@ -13,13 +14,23 @@ import Home from './views/Home';
 import ChatList from './views/ChatList';
 import Group from './views/Group';
 import GroupDetails from './views/GroupDetails';
+import CreateGroup from './views/CreateGroup';
 import Account from './views/Account';
 import AuthLoading from './views/AuthLoading';
 
 init();
 
+Text.defaultProps.style = {...Platform.select({
+  ios: {
+    fontFamily: 'San-Francisco'
+  },
+  android: {
+    fontFamily: 'Roboto'
+  }
+})};
+
 const GroupStack = createStackNavigator({
-  Group, GroupDetails,
+  Group, GroupDetails, CreateGroup
 }, {
   initialRouteName: 'Group',
 });

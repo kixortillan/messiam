@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, FlatList, Image } from 'react-native';
 import { connect } from 'react-redux';
-import { createTabNavigator } from 'react-navigation';
+import { createMaterialTopTabNavigator } from 'react-navigation';
 
 class MemberList extends React.PureComponent {
   constructor() {
@@ -27,7 +27,7 @@ class MemberList extends React.PureComponent {
   }
 }
 
-const TabNav = createTabNavigator({
+const TabNav = createMaterialTopTabNavigator({
   MemberList,
 }, {
   initialRouteName: 'MemberList'

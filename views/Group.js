@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, ActivityIndicator, Text, View, FlatList, TouchableOpacity } from 'react-native';
+import { StyleSheet, ActivityIndicator, Text, View, FlatList, TouchableOpacity, Modal } from 'react-native';
 import { connect } from 'react-redux';
 import { Ionicons } from '@expo/vector-icons'
 import firebase from '../lib/firebase';
@@ -7,12 +7,20 @@ import firebase from '../lib/firebase';
 class Group extends React.PureComponent {
   static navigationOptions = {
     title: 'Groups',
+    headerStyle: {
+      borderBottomColor: '#E0E0E0',
+      borderBottomWidth: StyleSheet.hairlineWidth,
+    },
+    headerTitleStyle: {
+      fontWeight: 'normal',
+      fontSize: 16,
+    }
   }
 
   constructor() {
     super();
     this.state = {
-      isViewReady: false
+      isViewReady: false,
     }
   }
 
@@ -52,12 +60,18 @@ class Group extends React.PureComponent {
               <TouchableOpacity onPress={this.viewGroupDetails(item.key)}>
                 <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between', padding: 20 }}>
                   <Text style={{ }}>{item.alias}</Text>
-                  <Ionicons name='ios-arrow-forward-outline' size={24} color={'#9E9E9E'} />
+                  <Ionicons name='ios-arrow-forward-outline' size={16} color={'#9E9E9E'} />
                 </View>
-                <View style={{ borderBottomWidth: StyleSheet.hairlineWidth, borderBottomColor: '#E0E0E0', marginLeft: 20, marginRight: 20 }}></View>
+                <View style={{ borderBottomWidth: StyleSheet.hairlineWidth, borderBottomColor: '#E0E0E0', marginLeft: 10, marginRight: 10 }}></View>
               </TouchableOpacity>
             );
           }} />}
+          <View style={{ flexDirection: 'row', justifyContent: 'center', paddingBottom: 20 }}>
+            <TouchableOpacity onPress={() => this.props.navigation.navigate('CreateGroup')} 
+            style={{ backgroundColor: '#009688', width: 120, paddingTop: 10, paddingBottom: 10, borderRadius: 25 }}>
+              <Text style={{ color: '#FFFFFF', textAlign: 'center' }}>Create Group</Text>
+            </TouchableOpacity>
+          </View>
       </View>
     );
   }
