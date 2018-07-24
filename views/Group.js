@@ -1,18 +1,20 @@
 import React from 'react';
-import { StyleSheet, ActivityIndicator, Text, View, FlatList, TouchableOpacity, Modal } from 'react-native';
+import { StyleSheet, ActivityIndicator, 
+  Text, View, FlatList, TouchableOpacity, Image } from 'react-native';
 import { connect } from 'react-redux';
-import { Ionicons } from '@expo/vector-icons'
+import { Ionicons } from '@expo/vector-icons';
 import firebase from '../lib/firebase';
+import CButton from '../components/CButton';
 
 class Group extends React.PureComponent {
   static navigationOptions = {
     title: 'Groups',
-    headerStyle: {
-      borderBottomColor: '#E0E0E0',
-      borderBottomWidth: StyleSheet.hairlineWidth,
-    },
+    // headerStyle: {
+    //   borderBottomColor: '#E0E0E0',
+    //   borderBottomWidth: StyleSheet.hairlineWidth,
+    // },
     headerTitleStyle: {
-      fontWeight: 'normal',
+      fontWeight: 'bold',
       fontSize: 16,
     }
   }
@@ -24,8 +26,8 @@ class Group extends React.PureComponent {
     }
   }
 
-  viewGroupDetails(id) {
-    
+  viewGroupDetails(info) {
+    this.props.navigation.navigate('GroupDetails', info);
   }
 
   componentDidMount() {
@@ -53,12 +55,16 @@ class Group extends React.PureComponent {
 
     return (
       <View style={{ flex: 1, backgroundColor: '#FFFFFF' }}>
+        <View style={{ flexDirection: 'row', justifyContent: 'center', paddingHorizontal: 30, paddingVertical: 5 }}>
+          <CButton title='Create Group' onPress={() => this.props.navigation.navigate('CreateGroup')}  />
+        </View>
         {this.props.groups && 
           <FlatList data={this.props.groups && this.props.groups.map(group => Object.assign({}, {key: group.id, alias: group.alias}))} 
           renderItem={({item}) => {
             return (
-              <TouchableOpacity onPress={this.viewGroupDetails(item.key)}>
+              <TouchableOpacity onPress={this.viewGroupDetails(item)}>
                 <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between', padding: 20 }}>
+                  {/* <Image source={{ uri: this.props.user.photoURL }} style={{ flex: 0, width: 40, height: 40, borderRadius: 50 }} /> */}
                   <Text style={{ }}>{item.alias}</Text>
                   <Ionicons name='ios-arrow-forward-outline' size={16} color={'#9E9E9E'} />
                 </View>
@@ -66,12 +72,6 @@ class Group extends React.PureComponent {
               </TouchableOpacity>
             );
           }} />}
-          <View style={{ flexDirection: 'row', justifyContent: 'center', paddingBottom: 20 }}>
-            <TouchableOpacity onPress={() => this.props.navigation.navigate('CreateGroup')} 
-            style={{ backgroundColor: '#009688', width: 120, paddingTop: 10, paddingBottom: 10, borderRadius: 25 }}>
-              <Text style={{ color: '#FFFFFF', textAlign: 'center' }}>Create Group</Text>
-            </TouchableOpacity>
-          </View>
       </View>
     );
   }

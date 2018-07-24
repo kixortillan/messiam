@@ -1,14 +1,12 @@
 import React from 'react';
 import { Provider } from 'react-redux';
-import { Text, Platform } from 'react-native';
 import { Asset, AppLoading } from 'expo';
 import { createStackNavigator, createSwitchNavigator, 
   createBottomTabNavigator } from 'react-navigation';
 import { Ionicons } from '@expo/vector-icons';
-import { init } from './lib/firebase';
+import firebase from './lib/firebase';
 import store from './store/store';
 
-//import Auth from './views/Auth';
 import Login from './views/Login';
 import Home from './views/Home';
 import ChatList from './views/ChatList';
@@ -18,21 +16,11 @@ import CreateGroup from './views/CreateGroup';
 import Account from './views/Account';
 import AuthLoading from './views/AuthLoading';
 
-init();
-
-Text.defaultProps.style = {...Platform.select({
-  ios: {
-    fontFamily: 'San-Francisco'
-  },
-  android: {
-    fontFamily: 'Roboto'
-  }
-})};
-
 const GroupStack = createStackNavigator({
   Group, GroupDetails, CreateGroup
 }, {
   initialRouteName: 'Group',
+  headerMode: 'float',
 });
 
 const AppStack = createBottomTabNavigator({
@@ -44,23 +32,21 @@ const AppStack = createBottomTabNavigator({
       const { routeName } = navigation.state;
       switch(routeName) {
         case 'ChatList':
-          return <Ionicons name='ios-chatboxes-outline' size={24} />;
+          return <Ionicons name={focused ? 'ios-chatboxes' : 'ios-chatboxes-outline'} size={32} />;
         case 'Account':
-          return <Ionicons name='ios-contact-outline' size={24} />;
+          return <Ionicons name={focused ? 'ios-contact' : 'ios-contact-outline'} size={32} />;
         case 'GroupStack':
-          return <Ionicons name='ios-contacts-outline' size={24} />;
+          return <Ionicons name={focused ? 'ios-contacts' : 'ios-contacts-outline'} size={32} />;
         default:
         case 'Home':
-          return <Ionicons name='ios-home-outline' size={24} />;
+          return <Ionicons name={focused ? 'ios-home' : 'ios-home-outline'} size={32} />;
       }
     }
   }),
   tabBarOptions: {
-    // activeTintColor: 'tomato',
-    // inactiveTintColor: 'gray',
     showLabel: false,
     style: {
-      backgroundColor: '#FFF',
+      backgroundColor: '#FFF'
     }
   },
 });
