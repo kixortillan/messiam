@@ -26,8 +26,8 @@ class Group extends React.PureComponent {
     }
   }
 
-  viewGroupDetails(info) {
-    this.props.navigation.navigate('GroupDetails', info);
+  viewGroupDetails() {
+    this.props.navigation.navigate('GroupDetails', this.props.info);
   }
 
   componentDidMount() {
@@ -62,7 +62,7 @@ class Group extends React.PureComponent {
           <FlatList data={this.props.groups && this.props.groups.map(group => Object.assign({}, {key: group.id, alias: group.alias}))} 
           renderItem={({item}) => {
             return (
-              <TouchableOpacity onPress={this.viewGroupDetails(item)}>
+              <TouchableOpacity onPress={this.viewGroupDetails}>
                 <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between', padding: 20 }}>
                   {/* <Image source={{ uri: this.props.user.photoURL }} style={{ flex: 0, width: 40, height: 40, borderRadius: 50 }} /> */}
                   <Text style={{ }}>{item.alias}</Text>

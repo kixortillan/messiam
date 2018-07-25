@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import { View, ActivityIndicator } from 'react-native';
+import { View, ActivityIndicator, Image } from 'react-native';
 import { connect } from 'react-redux';
 // import { SecureStore } from 'expo'; 
 import firebase from '../lib/firebase';
@@ -37,8 +37,9 @@ class AuthLoading extends PureComponent {
 
   render() {
     return (
-      <View style={{ flex: 1, justifyContent: 'space-around' }}>
-        <ActivityIndicator size='large' />
+      <View style={{ flex: 1, justifyContent: 'space-around', alignItems: 'center' }}>
+        {/* <ActivityIndicator size='large' /> */}
+        <Image source={require('../applogo.png')} style={{ width: 40, height: 40 }} />
       </View>
     );
   }

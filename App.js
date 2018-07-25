@@ -13,7 +13,8 @@ import ChatList from './views/ChatList';
 import Group from './views/Group';
 import GroupDetails from './views/GroupDetails';
 import CreateGroup from './views/CreateGroup';
-import Account from './views/Account';
+import Notification from './views/Notification';
+import Profile from './views/Profile';
 import AuthLoading from './views/AuthLoading';
 
 const GroupStack = createStackNavigator({
@@ -24,7 +25,7 @@ const GroupStack = createStackNavigator({
 });
 
 const AppStack = createBottomTabNavigator({
-  Home, ChatList, GroupStack, Account
+  Home, ChatList, GroupStack, Notification, Profile
 }, {
   initialRouteName: 'Home',
   navigationOptions: ({ navigation }) => ({
@@ -33,10 +34,12 @@ const AppStack = createBottomTabNavigator({
       switch(routeName) {
         case 'ChatList':
           return <Ionicons name={focused ? 'ios-chatboxes' : 'ios-chatboxes-outline'} size={32} />;
-        case 'Account':
+        case 'Profile':
           return <Ionicons name={focused ? 'ios-contact' : 'ios-contact-outline'} size={32} />;
         case 'GroupStack':
           return <Ionicons name={focused ? 'ios-contacts' : 'ios-contacts-outline'} size={32} />;
+        case 'Notification':
+          return <Ionicons name={focused ? 'ios-notifications' : 'ios-notifications-outline'} size={32} />
         default:
         case 'Home':
           return <Ionicons name={focused ? 'ios-home' : 'ios-home-outline'} size={32} />;
